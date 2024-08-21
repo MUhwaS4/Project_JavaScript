@@ -66,6 +66,8 @@ for (let i in arr) { // 변수 in 배열
   console.log(i);
 }
 
+/* for-of문 */
+
 // 배열을 순회하면서 값을 꺼냄
 for (let i of arr) { // 변수 in 배열
   console.log(i);
