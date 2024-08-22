@@ -24,8 +24,8 @@ let person2 = {
   }
 };
 
-
 person2.getName();
+
 // 첫 번째 방식은 객체를 동적으로 생성하기 좋음
 
 // xml과 JSON = 데이터를 표현하는 방법
