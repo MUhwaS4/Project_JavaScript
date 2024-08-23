@@ -228,6 +228,10 @@ txt_q2 = "새로운 제품 추가: ";
 console.log(txt_q2);
 console.log(inventory);
 
+// 배열의 요소 값을 변경할 때는 map() 또는 forEach() 사용
+// map()은 새로운 배열을 반환하고 (return),
+// forEach()는 기존 배열을 수정하므로 간단한 변경은 forEach()를 사용할 것
+
 inventory.filter(
   function (product) {
     return product.quantity > 0
@@ -237,6 +241,7 @@ inventory.filter(
   function (x) {
     x.product = "(재고있음) " + x.product
     // 재고가 있다면 앞의 문구를 변경 
+    // x.product = `(재고있음) ${x.product}` // 이 코드도 사용 가능
   } 
 );
 
@@ -252,6 +257,7 @@ inventory.filter (
 ).forEach (
   function (x) {
     x.price = x.price - (x.price*0.1);
+    // 혹은 x.price*0.9로 해도 상관없음
   }
 );
 
@@ -263,6 +269,7 @@ console.log(inventory);
 let totalPrice = inventory.reduce(
   function (total, accumulator) {
     return (accumulator.price * accumulator.quantity) + total
+    // 가격 * 수량 + 누적값
   }
 , 0);
 
