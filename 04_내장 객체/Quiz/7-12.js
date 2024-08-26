@@ -18,7 +18,7 @@ console.log("배열: " + number);
 console.log("결과: " + multiplication);
 
 
-// Q8. 주어진 문자열에서 각 단어의 첫 글자를 대문자로 변환하세요. ?? ...
+// Q8. 주어진 문자열에서 각 단어의 첫 글자를 대문자로 변환하세요.
 
 const sentence = "hello world welcome to programming";
 
