@@ -45,4 +45,4 @@ for (let value of userMap) {
 
 // 저장된 모든 값을 삭제
 userMap.clear();
-console.log(userMap); // Set {}
+console.log(userMap); // Map(0) {}

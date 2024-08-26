@@ -64,7 +64,6 @@ wishList();
 // 4) 내가 읽은 책 목록과 친구가 읽은 책 목록 각각 출력
 // 5) 공통으로 읽은 책을 찾아서 출력
 
-
 let readBook = new Set();
 
 readBook.add("해리포터");

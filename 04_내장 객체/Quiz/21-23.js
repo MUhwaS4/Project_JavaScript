@@ -49,6 +49,7 @@ console.log("10번 던진 결과: " + diceRoll)
 // 플레이어 한 명이 게임을 끝낸 결과를 반환하는 함수
 // 매개변수 num(반복횟수)
 // 리턴값: dicePl(다이스 결과를 담은 배열), diceSum(다이스 결과 합)
+
 function diceRollGame(num) {
   const dicePl = [];
 
