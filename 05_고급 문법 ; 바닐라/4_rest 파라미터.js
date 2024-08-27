@@ -9,9 +9,9 @@ func(1, 2, 3, 4, 5);
 
 // 잘못된 예시
 // rest parameter는 반드시 마지막 위치에 있어야 함
-  // function func2(one, ...rest, two) {
-  //   console.log(rest); // 3, 4 , 5
-  // }
+function func2(one, ...rest, two) {
+  console.log(rest); // 3, 4 , 5
+}
 
 // rest 파라미터를 이용하여 숫자들의 합 구하기
 function sum(...arr) {
