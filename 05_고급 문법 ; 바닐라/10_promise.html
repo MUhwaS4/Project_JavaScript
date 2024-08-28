@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+
+  <script>
+
+
+    // 비동기 방식
+
+    // 1번 작업: 작업을 처리하는데 1초 소요됨
+    // 2번 작업: 작업을 처리하는데 2초 소요됨
+    // 3번 작업: 작업을 처리하는데 5초 소요됨
+
+    // 3개의 작업을 "동기식"으로 처리했을 때 걸리는 시간은?
+    // 순차적으로 처리. 8초 소요.
+    // 3개의 작업을 "비동기식"으로 처리해을 때 걸리는 시간은? 5초
+
+
+
+    // 1. XMLHttpRequest를 사용하여 API 호출하기
+    // API란? 데이터를 제공하는 서버의 프로그램
+    function getDate(){
+      // XMLHttpRequest 객체: 서버와 데이터를 주고받기 위해 사용되는 객체
+      const xhr = new XMLHttpRequest();
+
+      //jsonplaceholder는 테스트를 위해 데이터를 제공하는 API 사이트이다
+      //posts/1 요청을 보내면 샘플데이터가 응답받을 수 있다
+
+      // open(): HTTP 요청 설정 (메소드와 URL)
+      // xhr.open(메소드, URL)
+      xhr.open("GET", "https://jsonplaceholder.typicode.com/posts/1")
+
+      xhr.send(); // 요청 전송
+
+      // onload(): 응답이 완료되었을때 호출되는 함수
+      xhr.onload = () => {
+
+        if (xhr.status === 200) {
+          // 정상적으로 응답을 받았을 경우
+          const res = JSON.parse(xhr.response);
+          // console.log(res);
+          return res;
+        } else {
+          // 요청에 실패한 경우 (네트워크 장애, 서버 로직 에러 등)
+          console.error(xhr.status, xhr.statusText);
+          // 에러코드와 에러메세지 출력
+          return;
+        }
+
+            // // xhr.status: 응답 메시지의 상태 코드
+            // console.log(xhr.status);
+            // // xhr.response: 응답 메시지의 데이터
+            // // 응답 데이터를 객체로 변환하여 출력
+            // const res = JSON.parse(xhr.response);
+            // console.log(res)
+      };
+    }
+
+    // getDate();
+
+    // 함수 호출 후 응답 데이터를 저장하려고 시도
+    // 하지만 이 시점에서는 서버로부터 응답이 도착하지 않았기 때문에 undefined가 저장된다
+    // XMLHttpRequest는 비동기 방식으로 요청을 처리하기 때문에, 응답이 올 때까지 기다리지 않고 바로 다음 코드가 실행된다.
+    // 따라서 요청 직후에는 응답 데이터를 바로 사용할 수 없다.
+    let res = getDate();
+    console.log(res); // undefined
+
+
+    // 2. Promise를 함께 사용하여 API 호출하기
+    function getDataPromise() {
+      // Promise 객체 생성
+      // 인자: 요청을 처리할 함수
+      const myPromise = new Promise(
+        // resolve와 reject... 응답받은 데이터를 처리할 객체
+        (resolve, reject) => { // 상단의 getDate와 동일 코드
+          const xhr = new XMLHttpRequest();
+
+          // get 요청
+          xhr.open("GET", "https://jsonplaceholder.typicode.com/posts/1")
+          xhr.send();
+
+          // 응답받은 데이터 처리
+          xhr.onload = () => {
+            if (xhr.status === 200) {
+              const res = JSON.parse(xhr.response);
+              resolve(res);
+              //응답 데이터를 Promise의 resolve함수로 전달
+            } else {
+              console.error(xhr.status, xhr.statusText);
+              reject(xhr.status);
+              //오류 상태를 Promise의 reject험수로 전달
+            }
+          };
+        }
+      )
+      //생성한 Promise 객체 반환
+      return myPromise;
+    }
+
+    // 반환된 promise 객체 저장
+    let promise = getDataPromise();
+
+    console.log(1);
+    console.log(2);
+    console.log(3);
+
+    // then(): 응답이 끝나고 난 후 남은 작업을 처리하는 함수 
+    // resolve 함수가 전달한 값 이어받기
+    promise.then( (response) => {
+      console.log(response)
+    } );
+
+    
+    console.log(4);
+    console.log(5);
+
+  </script>
+  
+</body>
+</html>
