@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+</head>
+
+	<style>
+		@font-face {
+			font-family: 'Pretendard-Regular';
+			src: url('https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
+			font-weight: 400;
+			font-style: normal;
+		}
+
+		* {
+			font-family: 'Pretendard-Regular';
+			box-sizing: border-box;
+		}
+
+		h4 {
+			letter-spacing: -0.2px;
+			font-weight: 400;
+		}
+
+		ul > li {
+			list-style-type: none;
+		}
+
+		.main {
+			padding: 15px;
+		}
+
+		.zone {
+			margin-top: 30px;
+		}
+
+		li > label {
+			display: inline-block;
+			width: 70px;
+		}
+
+		li {
+			margin: 0 auto 10px;
+		}
+
+		.reason {
+			width: 500px;
+			height: 80px;
+		}
+
+		.text_size {
+			position: absolute;
+			left: 550px;
+			text-align: right;
+		}
+
+		.border-red {
+			border: 2px solid red;
+		}
+
+		.text-red {
+			color: red;
+		}
+
+
+	</style>
+
+<body>
+
+	<div class="main">
+
+		<h1>프런트엔드 개발자 지원서</h1>
+		<h4>HTML, CSS, JavaScript에 대한 기술적 이해와 경험이 있는 분을 찾습니다.</h4>
+
+		<hr>
+		
+		<div class="zone">
+			<h3>개인정보</h3>
+			<ul>
+				<li>
+					<label for="name">이름</label>
+					<input type="text" id="name">
+				</li>
+				<li>
+					<label for="phone">연락처</label>
+					<input type="text" id="phone" onblur="phoneNumCk()">
+				</li>
+			</ul>
+		</div>
+
+		<div class="zone">
+			<h3>지원분야</h3>
+			<ul>
+				<li><input type="radio" name="field">웹 퍼블리싱</li>
+				<li><input type="radio" name="field">웹 애플리케이션 개발</li>
+				<li><input type="radio" name="field">개발 환경 개선</li>
+			</ul>
+		</div>
+
+		<div class="zone">
+			<h3>지원 동기</h3>
+			<textarea name="reason" id="reason" class="reason" onkeyup="textSizeCk()"></textarea>
+			<div class="text_size"><span class="text_size_num">0</span>/30글자</div>
+		</div>
+
+		<div class="zone">
+			<button class="sand" id="sand" onclick="notBlankCk()">접수하기</button>
+			<button class="repeat" id="repeat" onclick="removeText()">다시 쓰기</button>
+		</div>
+
+		<script>
+
+			function phoneNumCk() {
+				let phone = document.getElementById("phone");
+				let phonePatt = /[0-9]/
+				if (!phonePatt.test(phone.value)) {
+					phone.className = "border-red"
+				} else {
+					phone.className = ""
+				}
+			}
+
+			function textSizeCk() {
+				let text_size_num = document.querySelector(".text_size_num")
+				let textBox = document.getElementById("reason")
+
+				let inputText = textBox.value;
+				text_size_num.innerText = inputText.length;
+
+				if (inputText.length > 30) {
+					textBox.classList.add("text-red")
+				} else {
+					textBox.classList.remove("text-red")
+				}
+			}
+
+			function notBlankCk() {
+				let name = document.getElementById("name");
+				let phone = document.getElementById("phone");
+				let field = document.querySelector('input[name="field"]:checked');
+				let message = [];
+
+				if (name.value == "") {
+					message.push("이름을 입력해주세요.")
+				}
+				if (phone.value == "") {
+					message.push("연락처를 입력해주세요.")
+				}
+				if (!field) {
+					message.push("지원 분야를 선택해주세요.")
+				}
+
+				if (message.length > 0) {
+					alert(message.join("\n"))
+				} else {
+					alert("접수되었습니다!")
+				}
+			}
+
+			function removeText() {
+				let name = document.getElementById("name");
+				let phone = document.getElementById("phone");
+				let textBox = document.getElementById("reason")
+				let field = document.getElementsByName("field");
+
+				name.value = "";
+				phone.value = "";
+				textBox.value = "";
+
+				for (let i=0; i<field.length; i++) {
+					if (field[i].getAttribute("type") == 'radio') {
+						field[i].checked = false;
+					}
+				}
+
+			}
+
+		</script>
+
+	</div>
+
+</body>
+</html>

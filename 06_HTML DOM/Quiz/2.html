@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+
+	<style>
+		@font-face {
+			font-family: 'Pretendard-Regular';
+			src: url('https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
+			font-weight: 400;
+			font-style: normal;
+		}
+
+		* {
+			font-family: 'Pretendard-Regular';
+			box-sizing: border-box;
+		}
+
+		h4 {
+			letter-spacing: -0.2px;
+			font-weight: 400;
+		}
+
+		ul:not(.list) {
+			padding: 0px;
+		}
+
+		ul.list {
+			list-style-type: disc;
+		}
+
+		li {
+			margin: 0 auto 25px;
+		}
+
+		.zone {
+			margin-top: 30px;
+		}
+
+		.zone:first-child > ul > li > label {
+			display: inline-block;
+			width: 120px;
+		}
+
+		.border-red {
+			border: 2px solid red;
+		}
+
+	</style>
+</head>
+<body>
+
+	<div class="zone">
+		<h1>온라인 쇼핑 장바구니</h1>
+		<ul class="proAdd">
+			<li><label for="name">상품 이름</label><input type="text" id="name"></li>
+			<li><label for="quantity">수량</label><input type="text" id="quantity" onblur="numberCk1()"></li>
+			<li><label for="price">가격(개당)</label><input type="text" id="price" onblur="numberCk2()"></li>
+		<button id="add" onclick="productAdd()">장바구니에 추가</button>
+		</ul>
+	</div>
+
+	<div class="zone">
+		<h2>장바구니</h2>
+		<ul class="list">
+			<li>test</li>
+		</ul>
+		<ul class="proTotal">
+			<li><label for="totalQua">총 수량: </label><span class="quzNum">0</span></li>
+			<li><label for="totalPri">총 가격: </label><span class="priNum">0</span>원</li>
+		</ul>
+	</div>
+	
+
+	<script>
+
+		let productList = new Map();
+
+		function productAdd() {
+			let productName = document.getElementById("name").value;
+			let productQuantity = parseInt(document.getElementById("quantity").value);
+			let productPrice = parseFloat(document.getElementById("price").value);
+
+			console.log(productName);
+			console.log(productQuantity);
+			console.log(productPrice);
+
+			if (!productList.has(productName)) {
+				productList.set(productName, {productQuantity, productPrice});
+				console.log(productList);
+
+				let proUl = document.querySelector(".list");
+				let proText = `<li>${productName} - ${productQuantity}개 ${productPrice.toFixed(2)}원</li>`;
+
+				proUl.insertAdjacentHTML("beforeend", proText);
+				console.log(proText)
+			} else if (productList.has(productName)) {
+				productList.set(productList, {productQuantity, productPrice});
+
+				// 맵으로 수정해야 하나 ... 완전 수정이 아니라 추가가 되게끔 ......
+
+        // let proUl = document.querySelector(".list");
+        // let existingItem = [...proUl.children].find(li => li.textContent.startsWith(productName));
+				// let proEdit = [...proUl.children].find(
+				// 	function(li) {
+				// 		li.textContent.startsWith(productName)
+				// 	}
+				// );
+
+				console.log(proEdit)
+
+        if (existingItem) {
+            existingItem.innerHTML = `${productName} - ${productQuantity}개 ${productPrice.toFixed(2)}원`;
+        }
+
+			}
+		}
+
+		function numberCk1() {
+			let productQuantity = document.getElementById("quantity");
+			let productPrice = document.getElementById("price");
+
+			let Patt = /[0-9]/
+
+			if (!Patt.test(productQuantity.value)) {
+				productQuantity.classList.add("border-red")
+			} else {
+				productQuantity.classList.remove("border-red")
+			}
+		}
+
+
+		function numberCk2() {
+			let productQuantity = document.getElementById("quantity");
+			let productPrice = document.getElementById("price");
+
+			let Patt = /[0-9]/
+
+			if (!Patt.test(productPrice.value)) {
+				productPrice.classList.add("border-red")
+			} else {
+				productPrice.classList.remove("border-red")
+			}
+		}
+
+		
+
+		function notBlankCk() {
+			let name = document.getElementById("name");
+			let phone = document.getElementById("phone");
+			let field = document.querySelector('input[name="field"]:checked');
+			let message = [];
+
+			if (name.value == "") {
+				message.push("이름을 입력해주세요.")
+			}
+			if (phone.value == "") {
+				message.push("연락처를 입력해주세요.")
+			}
+			if (!field) {
+				message.push("지원 분야를 선택해주세요.")
+			}
+
+			if (message.length > 0) {
+				alert(message.join("\n"))
+			} else {
+				alert("접수되었습니다!")
+			}
+		}
+
+	</script>
+
+</body>
+</html>

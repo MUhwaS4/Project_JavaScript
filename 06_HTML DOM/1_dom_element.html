@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+
+  <input type="text" name="" id="userid">
+  <p>P태그 1</p>
+  <p>P태그 2</p>
+  <p class="para">P태그 3</p>
+  <p class="para">P태그 3</p>
+
+  <script>
+
+    // document 객체를 사용하여 HTML 요소 찾기
+    // let 변수명 = document.getElement속성("아이디");
+    // let 변수명 = document.querySelectorAll("css에서 사용한 것과 같은 선택자")
+
+    // id는 중복 불가 (단일 반환)
+    // 태그, class, 식별자 등은 중복 가능 (n개 반환)
+
+    // 아이디로 input 태그 찾기
+    let userid = document.getElementById("userid");
+    console.log(userid);
+
+    // 태그 이름으로 p 태그 찾기 -> 4개 반환
+    let p = document.getElementsByTagName("p");
+    console.log(p);
+
+    // 클래스 이름으로 p 태그 찾기
+    let para = document.getElementsByClassName("para");
+    console.log(para);
+
+    // 선택자로 class가 'para'인 p 태그 찾기
+    let pPara = document.querySelectorAll("p.para")
+    console.log(pPara);
+
+  </script>
+
+</body>
+
+</html>
