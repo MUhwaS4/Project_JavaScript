@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+
+	<style>
+		@font-face {
+			font-family: 'Pretendard-Regular';
+			src: url('https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
+			font-weight: 400;
+			font-style: normal;
+		}
+
+		* {
+			font-family: 'Pretendard-Regular';
+			box-sizing: border-box;
+		}
+
+		h4 {
+			letter-spacing: -0.2px;
+		}
+
+		ul {
+			padding: 0;
+		}
+
+		ul>li {
+			list-style-type: none;
+		}
+
+		.main {
+			padding: 15px;
+		}
+
+		.head>h4 {
+			font-weight: 400;
+		}
+
+		label {
+			display: inline-block;
+			width: 120px;
+			text-align: right;
+			padding: 10px 15px 10px 0px;
+		}
+
+		[type="radio"] {
+			margin-right: 5px;
+		}
+
+		[type="checkbox"] {}
+
+		.like_name>span {
+			margin: 0px 10px 0px 5px;
+		}
+
+		.head:not(:first-child) {
+			margin-top: 50px;
+		}
+
+		table {
+			width: 100%;
+			border: 1px solid black;
+			border-collapse: collapse;
+		}
+
+		td {
+			border: 1px solid black;
+			text-align: center;
+		}
+	</style>
+
+</head>
+
+<body>
+
+	<div class="main">
+
+		<div class="head">
+			<h1>회원가입</h1>
+			<h4>회원 가입을 위해 아래의 정보를 입력해주세요.</h4>
+		</div>
+
+		<hr>
+
+		<section>
+			<h4>회원 기본 정보</h4>
+			<div class="zone">
+				<ul>
+					<li><label for="id">아이디</label><input type="text" id="id" placeholder="4~8자 소문자 숫자"></li>
+					<li><label for="password">비밀번호</label><input type="text" id="password"></li>
+					<li><label for="passwordCk">비밀번호 확인</label><input type="text" id="passwordCk"></li>
+					<li><label for="name">이름</label><input type="text" id="name"></li>
+				</ul>
+			</div>
+
+			<h4>개인 정보</h4>
+			<div class="zone">
+				<ul>
+					<li>
+						<label for="preson_number">주민등록번호</label>
+						<input type="text" class="number_first">
+						<span>-</span>
+						<input type="text" class="number_last">
+						<button>확인</button>
+					</li>
+					<li>
+						<label for="gender">성별</label>
+						<input type="radio" id="gender_m" name="gender"><span>남</span>
+						<input type="radio" id="gender_f" name="gender"><span>여</span>
+					</li>
+				</ul>
+			</div>
+
+			<h4>관심 분야</h4>
+			<div class="zone">
+				<ul>
+					<li class="like_name">
+						<input type="checkbox" name="like" id="like" value="여행"><span>여행</span>
+						<input type="checkbox" name="like" id="like" value="영화"><span>영화</span>
+						<input type="checkbox" name="like" id="like" value="독서"><span>독서</span>
+						<input type="checkbox" name="like" id="like" value="음악"><span>음악</span>
+						<input type="checkbox" name="like" id="like" value="관심없음"><span>관심없음</span>
+					</li>
+				</ul>
+			</div>
+
+			<div class="zone">
+				<button onclick="idCk();likeCk();doSave()">회원 가입</button>
+				<button>다시 쓰기</button>
+			</div>
+
+		</section>
+
+		<div class="head">
+			<h1>회원정보 목록</h1>
+			<h4>아래는 회원표입니다.</h4>
+		</div>
+
+		<hr>
+
+		<table>
+			<tbody class="userList">
+				<tr>
+					<td>
+						아이디
+					</td>
+					<td>
+						이름
+					</td>
+					<td>
+						성별
+					</td>
+					<td>
+						관심분야
+					</td>
+				</tr>
+			</tbody>
+		</table>
+
+		<script>
+
+			let message = [];
+
+			function idCk() {
+				let regex = /^[a-z0-9]{4,8}$/;
+				let id = document.getElementById("id");
+				if (regex.test(id)) {
+					message.push("아이디는 4~8자 or 숫자")
+				};
+				
+				console.log(id.value);
+				return id.value;
+			}
+
+			function pwCk() {
+				let pw = document.getElementById("password");
+				let pwCk = document.getElementById("passwordCk");
+				if (pw !== pwCk) {
+					message.push("비밀번호가 일치하지 않습니다.")
+				}
+			}
+
+			function perNumCk() {
+				let num1 = document.getElementById("number_first");
+				let num2 = document.getElementById("number_last");
+
+				let regex1 = /^[0-9]{6}$/;
+				let regex2 = /^[0-9]{7}$/;
+
+				if (!(regex1.test(num1) && regex2.test(num2))) {
+					message.push("주민등록번호를 다시 확인해주세요.")
+				}
+			}
+
+			function likeCk() {
+				let like = document.querySelectorAll("input[name='like']");
+				let likeList = [];
+
+				like.forEach(function(checkbox) {
+        // 체크된 체크박스의 value 값을 likeList에 추가합니다.
+        if (checkbox.checked) {
+						likeList.push(checkbox.value);
+					}
+				});
+				
+				console.log(likeList.join(", "));
+				return likeList.join(", ");
+			}
+
+			function doSave() {
+				let list = document.querySelector(".userList");
+
+				let id = document.getElementById("id").value;
+				let pw = document.getElementById("password").value;
+				let pwCk = document.getElementById("passwordCk").value;
+				let name = document.getElementById("name").value;
+
+				let num1 = document.querySelector(".number_first").value;
+				let num2 = document.querySelector(".number_last").value;
+
+				let gender = function() {
+					let f = document.getElementById("gender_f");
+					let m = document.getElementById("gender_m");
+
+					if (f:checked) {
+						TODO
+					}
+
+					return;
+					// <li>
+					// 	<label for="gender">성별</label>
+					// 	<input type="radio" id="gender_m" name="gender"><span>남</span>
+					// 	<input type="radio" id="gender_f" name="gender"><span>여</span>
+					// </li>
+
+				}
+				
+				let like = document.querySelectorAll("input[name='like']");
+				let likeList = [];
+
+				like.forEach(function(checkbox) {
+				// 체크된 체크박스의 value 값을 likeList에 추가합니다.
+				if (checkbox.checked) {
+						likeList.push(checkbox.value);
+					}
+				});
+
+				let listPuls = `
+				<tr>
+					<td>
+						${id}
+					</td>
+					<td>
+						${name}
+					</td>
+					<td>
+						${gender}
+					</td>
+					<td>
+						${name}
+					</td>
+				</tr>`;
+
+				list.insertAdjacentHTML("beforeend", listPuls);
+
+				console.log(likeList.join(", "));
+				return likeList.join(", ");
+			}
+
+		</script>
+
+	</div>
+
+</body>
+
+</html>

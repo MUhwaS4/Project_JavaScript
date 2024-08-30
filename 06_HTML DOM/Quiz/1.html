@@ -113,8 +113,9 @@
 		<script>
 
 			function phoneNumCk() {
+				// 휴대폰 번호 유효성 검사
 				let phone = document.getElementById("phone");
-				let phonePatt = /[0-9]/
+				let phonePatt = /^01[0-9]-?[0-9]{3,4}-?[0-9]{4}$/;
 				if (!phonePatt.test(phone.value)) {
 					phone.className = "border-red"
 				} else {
@@ -140,12 +141,17 @@
 				let name = document.getElementById("name");
 				let phone = document.getElementById("phone");
 				let field = document.querySelector('input[name="field"]:checked');
+				let fieldOff = document.getElementsByName("field");
 				let message = [];
+				
+				let phonePatt = /^01[0-9]-?[0-9]{3,4}-?[0-9]{4}$/;
+
+				let phoneNum = phonePatt.test(phone.value)
 
 				if (name.value == "") {
 					message.push("이름을 입력해주세요.")
 				}
-				if (phone.value == "") {
+				if (phone.value == "" || !phoneNum) {
 					message.push("연락처를 입력해주세요.")
 				}
 				if (!field) {
@@ -156,6 +162,13 @@
 					alert(message.join("\n"))
 				} else {
 					alert("접수되었습니다!")
+					name.value = "";
+					phone.value = "";
+					for (let i=0; i<fieldOff.length; i++) {
+					if (fieldOff[i].getAttribute("type") == 'radio') {
+						fieldOff[i].checked = false;
+					}
+				}
 				}
 			}
 
