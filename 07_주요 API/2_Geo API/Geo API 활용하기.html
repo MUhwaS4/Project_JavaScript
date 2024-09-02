@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+</head>
+
+<body>
+
+	<script>
+		let tourlist = [
+			{
+				name: "인천광역시청",
+				latitude: 37.4559917,
+				longitude: 126.075292
+			},
+			{
+				name: "부산광역시청",
+				latitude: 35.17981,
+				longitude: 129.0748
+			},
+			{
+				name: "제주특별자치도청",
+				latitude: 33.48929,
+				longitude: 126.4983
+			},
+			{
+				name: "서울특별시청",
+				latitude: 37.56663,
+				longitude: 126.9782
+			}
+		]
+
+		// 나(사용자)와 위 장소와의 거리 구하기
+		function getDistance(lat1, lon1, lat2, lon2) {
+			var radlat1 = (Math.PI * lat1) / 180;
+			var radlat2 = (Math.PI * lat2) / 180;
+			var radlon1 = (Math.PI * lon1) / 180;
+			var radlon2 = (Math.PI * lon2) / 180;
+			var theta = lon1 - lon2;
+			var radtheta = (Math.PI * theta) / 180;
+			var dist =
+				Math.sin(radlat1) * Math.sin(radlat2) +
+				Math.cos(radlat1) * Math.cos(radlat2) * Math.cos(radtheta);
+			dist = Math.acos(dist);
+			dist = (dist * 180) / Math.PI;
+			dist = dist * 60 * 1.1515 * 1.609344;
+			return dist; //km단위
+		}
+
+		// 사용자와 장소 목록 간의 거리를 모두 계산하기
+		navigator.geolocation.getCurrentPosition(
+			(position) => {
+				// 사용자의 현재 위치
+				let latitude = position.coords.latitude; // 위도
+				let longitude = position.coords.longitude; // 위도
+
+				console.log("latitude", latitude);
+				console.log("longitude", longitude);
+
+				// i는 인덱스 : 0 1 2 3
+				for (let i in tourlist) {
+					// 장소
+					let tour = tourlist[i];
+
+					// 거리 계산하기
+					let distance = getDistance (latitude, longitude, tour.latitude, tour.longitude)
+
+					// 객체에 새로은 프로퍼티 추가
+					// 객체.키 = 값
+					tour.distance = distance;
+				}
+
+				tourlist.forEach( t => {
+					console.log(t);
+				})
+
+				// sort 함수를 사용하여 거리순으로 오름차순 정렬
+				// 결과: 인천 > 서울 > 부산 > 제주도
+				// 양수가 반환되면 위치 교체, 0이나 음수는 변화 없음
+				// 앞의 숫자가 뒤의 숫자보다 클 때 교체
+				// 5 - 1 : b - a
+
+				tourlist.sort(
+					function(a, b) {
+						return b.distance - a.distance;
+					}
+				)
+
+				console.log(tourlist)
+			},
+			(err) => {console.log(err)});
+
+	</script>
+
+</body>
+
+</html>

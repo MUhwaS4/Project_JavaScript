@@ -1,0 +1,38 @@
+@font-face {
+	font-family: 'Pretendard-Regular';
+	src: url('https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
+	font-weight: 400;
+	font-style: normal;
+}
+
+* {
+	font-family: 'Pretendard-Regular';
+	letter-spacing: -0.5px;
+}
+
+body {
+	display: flex; /* body flex 컨테이너 설정 */
+	flex-direction: column; /* 수직축 / 아이템 수직 정렬 */
+	align-items: center; /* 교차축 / 아이템 중앙 정렬 */
+}
+
+h1 {
+	font-size: 3rem;
+}
+
+button {
+	margin-left: 0.5rem;
+}
+
+#day-div {
+	display: flex;
+	font-size: 1.5rem;
+}
+
+#day-div > div {
+	padding: 5px;
+}
+
+body > div {
+	padding-bottom: 25px;
+}
