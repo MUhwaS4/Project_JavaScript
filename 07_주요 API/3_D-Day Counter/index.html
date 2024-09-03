@@ -12,15 +12,15 @@
   <h1>D-DAY Counter</h1>
 
   <div>
-    <input type="text" id="year-input" size="5" value="2024"><span>년</span>
-    <input type="text" id="month-input" size="5" value="9"><span>월</span>
-    <input type="text" id="date-input" size="5" value="3"><span>일</span>
+    <input type="text" id="year-input" size="5"><span>년</span>
+    <input type="text" id="month-input" size="5"><span>월</span>
+    <input type="text" id="date-input" size="5"><span>일</span>
   </div>
 
   <div>
-    <button onclick="count()">시작</button> <!-- 카운터 시작 -->
-    <button onclick="">중지</button> <!-- 카운터 일시정지 -->
-    <button onclick="">초기화</button> <!-- 카운터 리셋 -->
+    <button onclick="start()">시작</button> <!-- 카운터 시작 -->
+    <button onclick="stop()">중지</button> <!-- 카운터 일시정지 -->
+    <button onclick="reset()">초기화</button> <!-- 카운터 리셋 -->
   </div>
 
   <div id="day-div">
