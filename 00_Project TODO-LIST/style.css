@@ -1,0 +1,75 @@
+@font-face {
+	font-family: 'Pretendard-Regular';
+	src: url('https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
+	font-weight: 400;
+	font-style: normal;
+}
+
+* {
+	font-family: 'Pretendard-Regular';
+	box-sizing: border-box;
+}
+
+.main {
+	max-width: 500px;
+	width: 100%;
+	margin: 0 auto;
+}
+
+.main > * {
+	width: 100%;
+}
+
+#todo_box {
+	width: 420px;
+	height: 40px;
+	padding: 10px;
+}
+
+#todo_add {
+	width: 40px;
+	height: 40px;
+	line-height: 15px;
+}
+
+input[name="ck"] {
+	width: 25px;
+	height: 25px;
+	margin: 0;
+}
+
+table {
+	width: 420px;
+	border-collapse: collapse;
+	margin-top: 20px;
+}
+
+thead {
+	padding: 10px 0 0 0;
+	margin: 0;
+}
+
+td {
+	/* padding: 3px; */
+}
+
+thead {
+	/* display: flex; */
+	justify-items: center;
+}
+
+.th_h {
+	height: 30px;
+}
+
+input[type="text"].th_h {
+	width: 300px;
+}
+
+hr {
+	width: 100%;
+}
+
+.text_deco_x {
+	text-decoration: line-through
+}
