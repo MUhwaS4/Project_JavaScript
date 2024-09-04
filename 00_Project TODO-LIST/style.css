@@ -5,31 +5,108 @@
 	font-style: normal;
 }
 
+/* 공통 */
+
 * {
 	font-family: 'Pretendard-Regular';
 	box-sizing: border-box;
+	letter-spacing: -0.5px;
 }
+
+hr {
+	width: 100%;
+}
+
+button {
+	width: 100%;
+	margin: 0 auto;
+	padding: 5px;
+	border: none;
+	border-radius: 5px;
+	background-color: #ff7588;
+	color: #fff;
+	transition: 0.5s;
+}
+
+button:hover {
+	background-color: #ff9fac;
+	color: #fff;
+}
+
+body {
+	background-color: black;
+}
+
+/* main */
 
 .main {
 	max-width: 500px;
 	width: 100%;
-	margin: 0 auto;
+	margin: 30px auto 0;
+
+	border: 1px solid #ffaaaa;
+	border-radius: 20px;
+	background-color: #fff;
+	padding: 20px;
+	
 }
 
 .main > * {
 	width: 100%;
+	min-width: 315px;
+}
+
+h1 {
+	text-align: center;
+	/* font-size: 20px; */
+	letter-spacing: 10px;
+	text-transform: uppercase;
+	/* margin: 10px 0px 30px; */
+}
+
+h1:hover { animation-duration: 3s; animation-name: rainbowLink; animation-iteration-count: infinite; } 
+@keyframes rainbowLink {     
+ 0% { color: #ff2a2a; }
+ 15% { color: #ff7a2a; }
+ 30% { color: #ffc52a; }
+ 45% { color: #43ff2a; }
+ 60% { color: #2a89ff; }
+ 75% { color: #202082; }
+ 90% { color: #6b2aff; } 
+ 100% { color: #e82aff; }
+}
+
+h2 {
+	text-align: center;
+	font-size: 14px;
+	margin: 10px 0px 30px;
+}
+
+.todo {
+	display: flex;
 }
 
 #todo_box {
-	width: 420px;
 	height: 40px;
 	padding: 10px;
+	flex: 1;
+	margin-right: 2px;
+
+	border: none;
+	border-bottom: 1px solid black;
+}
+
+#todo_box[type="text"]:focus {
+	outline: none;
 }
 
 #todo_add {
 	width: 40px;
 	height: 40px;
 	line-height: 15px;
+	flex-shrink: 0; 
+	margin: 0px 3px;
+	right: 0;
 }
 
 input[name="ck"] {
@@ -38,8 +115,11 @@ input[name="ck"] {
 	margin: 0;
 }
 
+.todo table {
+	min-width: 300px;
+}
+
 table {
-	width: 420px;
 	border-collapse: collapse;
 	margin-top: 20px;
 }
@@ -50,7 +130,7 @@ thead {
 }
 
 td {
-	/* padding: 3px; */
+	padding: 3px;
 }
 
 thead {
@@ -63,13 +143,75 @@ thead {
 }
 
 input[type="text"].th_h {
-	width: 300px;
+	width: 100%;
+	border: none;
+	background-color: transparent;
+	outline: none;
 }
 
-hr {
-	width: 100%;
+input[type="text"].th_h.bac_co {
+	background-color: #ffeaed;
+	border-radius: 5px;
+}
+
+.list_info .list_tr {
+	min-width: 300px;
+	max-width: 440px;
 }
 
 .text_deco_x {
 	text-decoration: line-through
+}
+
+.list_info.list_tr > td:nth-child(1) {
+	width: 35px;
+	line-height: 12px;
+}
+
+.list_info.list_tr > td:nth-child(2) {
+	/* width: 35px; */
+}
+
+.list_info.list_tr > td:nth-child(3) {
+	width: 50px;
+}
+
+.list_info.list_tr > td:nth-child(4) {
+	width: 50px;
+	margin: 0 auto;
+}
+
+/* button[id="todo_add"] {
+	border: none;
+	border-radius: 10px;
+} */
+
+.count {
+	text-align: center;
+	margin-top: 10px;
+}
+
+button[id="remove_list"] {
+	color: #fff;
+	background-color: #ff7588;
+	border: none;
+	border-radius: 10px;
+	box-shadow: 0px 4px 0px #ffaaaa;
+	top: 0px;
+	margin: 20px 0px;
+}
+
+button[id="remove_list"]:hover {
+	position: relative;
+	color: #fff;
+	background-color: rgb(255, 133, 153);
+	box-shadow: 0px 1px 0px #ffaaaa;
+	transition: 0.3s;
+	top: 3px;
+}
+
+.info {
+	font-size: 11px;
+	text-align: center;
+	color: #a5a5a5;
 }

@@ -4,7 +4,6 @@
 // 스토리지에 리스트 총 개수 저장
 
 localStorage.getItem("totalTodo", total = 0);
-localStorage.getItem("finishTodo", total = 0);
 
 // 총 수량 확인
 function numCk() {
@@ -25,8 +24,6 @@ function numCk() {
 
 	document.getElementById("total_num").textContent = total;
 	document.getElementById("finish_num").textContent = finish;
-
-	localStorage.setItem("finishTodo", finish);
 }
 
 // 할 일 추가
@@ -36,17 +33,18 @@ function listAdd(totalTodo) {
 	let todoL = document.querySelector(".todo_list");
 
 	let text = `
-			<tr class="list_info">
-					<td><input type="checkbox" name="ck" class="ck_box" onclick="numCk()"></td>
-					<td><input type="text" name="list" class="todo_text th_h" value="${textBox}" disabled></td>
-					<td><button type="button" class="th_h edit_text" onclick="editBtn(this)">수정</button></td>
-					<td><button type="button" class="th_h remove_text" onclick="removeBtn(this)">삭제</button></td>
-			</tr>
-			<tr>
-					<td colspan="4"><hr></td>
-			</tr>`;
+		<tr class="list_info list_tr">
+			<td><input type="checkbox" name="ck" class="ck_box" onclick="numCk()"></td>
+			<td><input type="text" name="list" class="todo_text th_h" value="${textBox}" disabled></td>
+			<td><button type="button" class="th_h edit_text" onclick="editBtn(this)">수정</button></td>
+			<td><button type="button" class="th_h remove_text" onclick="removeBtn(this)">삭제</button></td>
+		</tr>
+		<tr class="list_tr">
+			<td colspan="4"><hr></td>
+		</tr>`;
 
 	todoL.insertAdjacentHTML("beforeend", text);
+	saveList();
 	
 	if (totalTodo === undefined) {
 		total++;
@@ -87,10 +85,12 @@ function editBtn(btn) {
 		// disabled 속성이 true일 때, false로 설정하여 수정 가능하도록 함
 		input.disabled = false;
 		btn.textContent = "완료"; // 버튼 텍스트를 "완료"로 변경 (수정 완료 시)
+		input.classList.add("bac_co");
 	} else {
 		// disabled 속성이 false일 때, true로 설정하여 수정 불가능하도록 함
 		input.disabled = true;
 		btn.textContent = "수정"; // 버튼 텍스트를 "수정"으로 변경 (수정 모드로 돌아감)
+		input.classList.remove("bac_co");
 	}
 }
 
@@ -110,6 +110,8 @@ function removeBtn(btn) {
 	total--;
 	localStorage.setItem("totalTodo", total);
 	numCk();
+
+	saveList();
 }
 
 // 전체 삭제
@@ -122,4 +124,50 @@ function removeFull() {
 	total = 0;
 	localStorage.setItem("totalTodo", total);
 	numCk();
+
+	localStorage.removeItem("todoList");
 }
+
+// 스토리지 저장 
+function saveList() {
+	const todoListText = document.querySelectorAll(".todo_list > tr.list_info");
+	let todos = [];
+
+	todoListText.forEach(
+		function (item) {
+			let checkbox = item.querySelector("input[name='ck']").checked;
+			let text = item.querySelector(".todo_text").value;
+			todos.push({text, checked: checkbox});
+		}
+	);
+
+	localStorage.setItem("todoList", JSON.stringify(todos));	
+}
+
+// 스토리지 로드
+function loadList() {
+	let todos = JSON.parse(localStorage.getItem("todoList") || []);
+	let todoL = document.querySelector(".todo_list");
+
+	todoL.checked
+
+	todos.forEach (function (todo) {
+		let text = `
+		<tr class="list_info list_tr">
+			<td><input type="checkbox" name="ck" class="ck_box" onclick="numCk()" ${todo.checked ? 'checked' : ''}></td>
+			<td><input type="text" name="list" class="todo_text th_h" value="${todo.text}" disabled></td>
+			<td><button type="button" class="th_h edit_text" onclick="editBtn(this)">수정</button></td>
+			<td><button type="button" class="th_h remove_text" onclick="removeBtn(this)">삭제</button></td>
+		</tr>
+		<tr>
+			<td colspan="4"><hr></td>
+		</tr>`;
+		
+		todoL.insertAdjacentHTML("beforeend", text);
+	});
+
+	total = todos.length;
+	numCk();
+}
+
+document.addEventListener("DOMContentLoaded", loadList);
