@@ -152,6 +152,7 @@ input[type="text"].th_h {
 input[type="text"].th_h.bac_co {
 	background-color: #ffeaed;
 	border-radius: 5px;
+	padding: 0px 10px;
 }
 
 .list_info .list_tr {
@@ -166,10 +167,6 @@ input[type="text"].th_h.bac_co {
 .list_info.list_tr > td:nth-child(1) {
 	width: 35px;
 	line-height: 12px;
-}
-
-.list_info.list_tr > td:nth-child(2) {
-	/* width: 35px; */
 }
 
 .list_info.list_tr > td:nth-child(3) {
